@@ -1,13 +1,12 @@
 class Oystercard
   LIMIT_VALUE = 90
   MINIMUM_FARE = 1
-  attr_reader :balance, :entry_station, :exit_station, :journeys, :journeys2
+  attr_reader :balance, :entry_station, :exit_station, :journeys
    
   def initialize
     @balance = 0
     @entry_station = nil
     @journeys = {}
-    @journeys2 = {}
   end
 
   def top_up(amount)
@@ -25,21 +24,12 @@ class Oystercard
 
     @journeys["entry_station"] = @entry_station
     @journeys["exit_station"] = station
-
-    # @journeys2[@entry_station] = station
-
-    # @journeys[entry_station] = @entry_station
-    # @journeys[exit_station] = @exit_station
-
     @entry_station = nil
   end
 
   def in_journey?
-    if @entry_station.nil?
-      false     
-   else
-     true
-   end
+    return true unless @entry_station.nil?
+    false
   end
 
 
