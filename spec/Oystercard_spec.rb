@@ -61,17 +61,16 @@ describe Oystercard do
   end
 
   describe '#journeys' do
-    let(:journey){ {"entry_station" => station, "exit_station" => station} }
-     
+
    it 'has an empty list of journeys by default' do
     expect(card.journeys).to be_empty
    end
 
    it 'creates one journey by touching in and touching out' do
-    
     card.top_up(10)
     card.touch_in(station)
     card.touch_out(station)
+    journey = [{ station => station }]
     expect(card.journeys).to eq journey
    end
   end
