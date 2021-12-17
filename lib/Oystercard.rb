@@ -1,6 +1,9 @@
+require './lib/journey.rb'
+
 class Oystercard
   LIMIT_VALUE = 90
   MINIMUM_FARE = 1
+  PENALTY_FARE = 6
   attr_reader :balance, :entry_station, :journeys
    
   def initialize
@@ -34,6 +37,7 @@ class Oystercard
   private
 
   def deduct(amount)
+    # amount = journey.fare
     @balance -= amount
   end
   
