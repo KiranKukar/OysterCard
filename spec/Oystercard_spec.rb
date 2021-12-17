@@ -1,4 +1,5 @@
 require 'Oystercard'
+require 'journey'
 
 describe Oystercard do
   let(:card) { Oystercard.new }
@@ -47,8 +48,9 @@ describe Oystercard do
       expect(card.in_journey?).to be false
     end
 
-    it "deducts minimum fare from balance when thouching out" do
+    it "deducts minimum fare from balance when touching out" do
       card.top_up(10)
+      card.touch_in(station)
       expect {card.touch_out(station) }.to change(card, :balance).by(-1)
     end
 
@@ -57,7 +59,6 @@ describe Oystercard do
       expect(card.entry_station).to eq nil
     end
 
-    
   end
 
   describe '#journeys' do

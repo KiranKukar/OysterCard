@@ -2,14 +2,15 @@
 class Journey
   MINIMUM_FARE = 1
   PENALTY_FARE = 6
-  attr_reader :entry_station, :journeys
+  attr_reader :start, :end
 
   def initialize
-    @journeys = []
+    @start
+    @end
   end
 
   def in_journey?
-    return true unless @entry_station.nil?
+    return true unless @start.nil?
     false
   end
 
@@ -21,21 +22,20 @@ class Journey
    end
   end
 
-  def start_journey
-
+  def start_journey(station = nil)
+    @start = station
   end
 
-  def end_journey
-
+  def end_journey(station = nil)
+    @end = station
   end
 
   def penalty?
-    if start_journey == nil || end_journey == nil
+    if @start == nil || @end == nil
       true
     else
       false
     end
   end
-
 
 end

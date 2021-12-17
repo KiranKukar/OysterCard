@@ -3,13 +3,14 @@ require './lib/journey.rb'
 class Oystercard
   LIMIT_VALUE = 90
   MINIMUM_FARE = 1
-  PENALTY_FARE = 6
+
   attr_reader :balance, :entry_station, :journeys
    
   def initialize
     @balance = 0
     @entry_station = nil
     @journeys = []
+    @fare = Journey.new
   end
 
   def top_up(amount)
@@ -20,10 +21,12 @@ class Oystercard
   def touch_in(station)
     raise "Insufficient balance." if @balance < MINIMUM_FARE
     @entry_station = station
+    @fare.start_journey(station)
   end
 
   def touch_out(station)
-    deduct(MINIMUM_FARE)
+    @fare.end_journey(station)
+    deduct(@fare.fare)
     @journeys << { @entry_station => station }
     @entry_station = nil
   end
@@ -37,7 +40,6 @@ class Oystercard
   private
 
   def deduct(amount)
-    # amount = journey.fare
     @balance -= amount
   end
   
